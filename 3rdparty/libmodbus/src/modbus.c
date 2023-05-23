@@ -399,8 +399,8 @@ int _modbus_receive_msg(modbus_t *ctx, uint8_t *msg, msg_type_t msg_type)
          * received */
         p_tv = NULL;
     } else {
-        tv.tv_sec = ctx->response_timeout.tv_sec;
-        tv.tv_usec = ctx->response_timeout.tv_usec;
+        tv.tv_sec = (ctx->response_timeout.tv_sec);
+        tv.tv_usec =(ctx->response_timeout.tv_usec);
         p_tv = &tv;
     }
 
@@ -2013,9 +2013,9 @@ void modbus_poll(modbus_t* ctx)
         	return;
     	}
 
-	modbus_set_response_timeout( ctx, 0, 500);
+    modbus_set_response_timeout( ctx, 0, 500);
 	const int ret = _modbus_receive_msg( ctx, &msg_len, MSG_CONFIRMATION );	/* wait for 0.5 ms */
-	modbus_set_response_timeout( ctx, 0, _RESPONSE_TIMEOUT);
+    modbus_set_response_timeout( ctx, 3, _RESPONSE_TIMEOUT);
 	if( ( ret < 0 && msg_len > 0 ) || ret >= 0 )
 	{
 		const int o = ctx->backend->header_length;
