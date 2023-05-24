@@ -28,8 +28,6 @@ protected:
 private slots:
     void on_cbEnabled_clicked(bool checked);
 
-    void on_checkBox_clicked(bool checked);
-
 signals:
     void tcpPortActive(bool val);
     void connectionError(const QString &msg);
