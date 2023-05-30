@@ -52,11 +52,9 @@ MainWindow::MainWindow( QWidget * _parent ) :
 	ui->setupUi(this);
 
 	connect( ui->rtuSettingsWidget,   SIGNAL(serialPortActive(bool)), this, SLOT(onRtuPortActive(bool)));
-	connect( ui->asciiSettingsWidget, SIGNAL(serialPortActive(bool)), this, SLOT(onAsciiPortActive(bool)));
 	connect( ui->tcpSettingsWidget,   SIGNAL(tcpPortActive(bool)),    this, SLOT(onTcpPortActive(bool)));
 
 	connect( ui->rtuSettingsWidget,   SIGNAL(connectionError(const QString&)), this, SLOT(setStatusError(const QString&)));
-	connect( ui->asciiSettingsWidget, SIGNAL(connectionError(const QString&)), this, SLOT(setStatusError(const QString&)));
     connect( ui->tcpSettingsWidget,   SIGNAL(connectionError(const QString&)), this, SLOT(setStatusError(const QString&)));
 
 	connect( ui->slaveID, SIGNAL( valueChanged( int ) ),
@@ -268,10 +266,20 @@ void MainWindow::busMonitorRawData( uint8_t * data, uint8_t dataLen, bool addNew
 
         dataByte = dataString.toLatin1();
 
+        if(ui->tcpSettingsWidget->activeListen2)
+        {
+            const qint64 written = ui->tcpSettingsWidget->serialUSB2->write(dataByte);
+            if (written == dataByte.size())
+            {
+                m_portTimer->start( 1000 );
+            }
+
+        }
+
         if(ui->rtuSettingsWidget->activeListen)
         {
-            const qint64 written = ui->rtuSettingsWidget->serialUSB->write(dataByte);
-            if (written == dataByte.size())
+            const qint64 written2 = ui->rtuSettingsWidget->serialUSB->write(dataByte);
+            if (written2 == dataByte.size())
             {
                 m_portTimer->start( 1000 );
             }
@@ -643,20 +651,7 @@ void MainWindow::onRtuPortActive(bool active)
 	}
 }
 
-void MainWindow::onAsciiPortActive(bool active)
-{
-    if (active) {
-        m_modbus = ui->asciiSettingsWidget->modbus();
-        if (m_modbus) {
-            modbus_register_monitor_add_item_fnc(m_modbus, MainWindow::stBusMonitorAddItem);
-            modbus_register_monitor_raw_data_fnc(m_modbus, MainWindow::stBusMonitorRawData);
-        }
-        m_tcpActive = false;
-    }
-    else {
-        m_modbus = NULL;
-    }
-}
+
 
 void MainWindow::onTcpPortActive(bool active)
 {

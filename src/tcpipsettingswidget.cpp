@@ -55,8 +55,14 @@ void TcpIpSettingsWidget::enableGuiItems(bool checked)
 
 void TcpIpSettingsWidget::on_cbEnabled_clicked(bool checked)
 {
+    ui->ListenBox->setEnabled(checked);
     enableGuiItems(checked);
     emit tcpPortActive(checked);
+    if(!checked)
+    {
+        ui->ListenBox->setChecked(false);
+        on_ListenBox_clicked(false);
+    }
 }
 
 void TcpIpSettingsWidget::tcpConnect()
@@ -64,4 +70,33 @@ void TcpIpSettingsWidget::tcpConnect()
     int portNbr = ui->edPort->text().toInt();
     changeModbusInterface(ui->edNetworkAddress->text(), portNbr);
     emit tcpPortActive(ui->cbEnabled->isChecked());
+}
+
+void TcpIpSettingsWidget::on_ListenBox_clicked(bool checked)
+{
+    ui->listenPath->setEnabled(checked);
+    ui->setButton->setEnabled(checked);
+    activeListen2 = checked;
+}
+
+void TcpIpSettingsWidget::on_setButton_clicked()
+{
+    if(ui->ListenBox->isChecked())
+    {
+        serialUSB2 = new QSerialPort;
+        serialUSB2->setPortName(ui->listenPath->text());
+        serialUSB2->setBaudRate(QSerialPort::Baud115200);
+        serialUSB2->setDataBits(QSerialPort::Data8);
+        serialUSB2->setParity(QSerialPort::NoParity);
+        serialUSB2->setStopBits(QSerialPort::OneStop);
+        serialUSB2->setFlowControl(QSerialPort::NoFlowControl);
+        if (!serialUSB2->open(QIODevice::WriteOnly))
+        {
+            qDebug() << "Failed to open portS4";
+
+        }
+
+
+    }
+
 }

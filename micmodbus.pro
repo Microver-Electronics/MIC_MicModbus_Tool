@@ -11,8 +11,6 @@ SOURCES += src/main.cpp \
     3rdparty/libmodbus/src/modbus-data.c \
     3rdparty/libmodbus/src/modbus-rtu.c \
     3rdparty/libmodbus/src/modbus-tcp.c \
-    3rdparty/libmodbus/src/modbus-ascii.c \
-    src/asciisettingswidget.cpp \
     src/rtusettingswidget.cpp \
     src/serialsettingswidget.cpp \
     src/tcpipsettingswidget.cpp \

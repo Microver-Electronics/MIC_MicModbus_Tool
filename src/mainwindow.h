@@ -89,7 +89,6 @@ private slots:
     void openBatchProcessor();
     void aboutQModBus( void );
     void onRtuPortActive(bool active);
-    void onAsciiPortActive(bool active);
     void onTcpPortActive(bool active);
     void resetStatus( void );
     void setStatusError(const QString &msg);

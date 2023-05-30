@@ -2,6 +2,8 @@
 #define TCPIPSETTINGSWIDGET_H
 
 #include <QWidget>
+#include <QtSerialPort/QSerialPort>
+#include <QtSerialPort/QSerialPortInfo>
 #include "imodbus.h"
 
 namespace Ui {
@@ -20,6 +22,10 @@ public:
     virtual int setupModbusPort();
     void tcpConnect();
 
+    QSerialPort *serialUSB2= nullptr;
+
+    bool activeListen2 = false;
+
 protected:
     void changeModbusInterface(const QString& address, int portNbr);
     void releaseTcpModbus();
@@ -27,6 +33,10 @@ protected:
 
 private slots:
     void on_cbEnabled_clicked(bool checked);
+
+    void on_ListenBox_clicked(bool checked);
+
+    void on_setButton_clicked();
 
 signals:
     void tcpPortActive(bool val);

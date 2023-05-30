@@ -14,7 +14,7 @@
    <string>MicModBus</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../data/qmodbus.qrc">
+   <iconset resource="../data/micmodbus.qrc">
     <normaloff>:/images/microver.png</normaloff>:/images/microver.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -30,7 +30,7 @@
          </sizepolicy>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
@@ -49,16 +49,6 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="TcpIpSettingsWidget" name="tcpSettingsWidget" native="true"/>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tab_3">
-         <attribute name="title">
-          <string>Modbus ASCII</string>
-         </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="AsciiSettingsWidget" name="asciiSettingsWidget" native="true"/>
           </item>
          </layout>
         </widget>
@@ -463,7 +453,7 @@
      <x>0</x>
      <y>0</y>
      <width>1021</width>
-     <height>29</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -518,15 +508,9 @@
    <header>tcpipsettingswidget.h</header>
    <container>1</container>
   </customwidget>
-  <customwidget>
-   <class>AsciiSettingsWidget</class>
-   <extends>QWidget</extends>
-   <header>asciisettingswidget.h</header>
-   <container>1</container>
-  </customwidget>
  </customwidgets>
  <resources>
-  <include location="../data/qmodbus.qrc"/>
+  <include location="../data/micmodbus.qrc"/>
  </resources>
  <connections>
   <connection>

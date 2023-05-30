@@ -71,7 +71,6 @@ void SerialSettingsWidget::on_checkBox_clicked(bool checked)
 	if (checked) {
         ui->setButton->setEnabled(true);
         ui->checkListen->setEnabled(true);
-		setupModbusPort();
 	}
 	else {
         ui->setButton->setEnabled(false);
